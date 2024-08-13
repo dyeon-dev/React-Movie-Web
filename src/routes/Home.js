@@ -1,48 +1,34 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import Movie from "../components/Movie";
 import styles from "./Home.module.css";
-import List from "../components/List";
-import ListItem from "../components/ListItem";
-
+import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 export default function Home() {
-  const [loading, setLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
-  const getMovies = async () => {
-    const json = await (
-      await fetch(
-        `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year`
-      )
-    ).json();
-    setMovies(json.data.movies);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getMovies();
-  }, []);
-
-  console.log(movies);
-
+  const Button = styled.button`
+    background: red;
+    color: black;
+    padding: 1em 2em;
+    font-size: 2em;
+    border-radius: 6px;
+    font-weight: bold;
+    &:hover {
+      border-color: red;
+      box-shadow: 0 0.5em 0.5em -0.4em white;
+    }
+  `;
   return (
-    <>
-      <h1 className="mx-6 text-3xl font-bold">
-        평점 8.8 이상의 명작들! {loading ? "" : `(${movies.length})`}
-      </h1>
-
-      <div class="flex space-x-4">
-        {loading ? (
-          <div className={styles.loader}>
-            <span>Loading...</span>
-          </div>
-        ) : (
-          <List>
-            {movies.map((movie) => (
-              <ListItem key={movie.id} movie={movie} />
-            ))}
-          </List>
-        )}
+    <div className={`${styles.body} flex-col`}>
+      <div
+        className="bg-cover bg-center w-full h-screen"
+        style={{
+          backgroundImage:
+            "url('https://assets.nflxext.com/ffe/siteui/vlv3/b2c3e95b-b7b5-4bb7-a883-f4bfc7472fb7/d3a50232-aaa5-455a-b442-8aeff2d2ef53/KR-ko-20240805-POP_SIGNUP_TWO_WEEKS-perspective_WEB_1df38994-2950-4cd7-b456-536d22da686f_small.jpg')",
+        }}
+      >
+        <div className={styles.bgImg}></div>
       </div>
-    </>
+      <Link to="/tv">
+        <Button>넷플릭스를 즐겨보세요 !</Button>
+      </Link>
+    </div>
   );
 }
