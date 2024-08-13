@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Home.module.css";
 import styled from "@emotion/styled";
-
+import { Link } from "react-router-dom";
 export default function Home() {
   const Button = styled.button`
     background: red;
@@ -26,7 +26,9 @@ export default function Home() {
       >
         <div className={styles.bgImg}></div>
       </div>
-      <Button>넷플릭스를 즐겨보세요 !</Button>
+      <Link to="/tv">
+        <Button>넷플릭스를 즐겨보세요 !</Button>
+      </Link>
     </div>
   );
 }
