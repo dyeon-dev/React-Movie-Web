@@ -1,10 +1,11 @@
 import React from 'react'
 import Header from '../components/Header'
 
-export default function Tv() {
+export default function Movie() {
   return (
     <div>
         <Header />
+        tv page
     </div>
   )
 }

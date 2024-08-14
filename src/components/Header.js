@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default function Header() {
+function Header(toSearch) {
+  const [text, setText] = useState("");
+  function onChange(e) {
+    setText(e.target.value)
+  }
+  function onSubmit(e) {
+    e.preventDefault();
+    setText("")
+  }
   return (
     <div>
       <div className="grid grid-cols-6 gap-4 items-center p-4 bg-black">
@@ -27,16 +36,44 @@ export default function Header() {
 
         {/* 네비게이션 탭 */}
         <div className="col-span-4 flex space-x-10 text-white">
+          <Link to="/movie" className="hover:underline">
+            Movie
+          </Link>
           <Link to="/tv" className="hover:underline">
             TV
           </Link>
-          <Link to="/movie" className="hover:underline">
-            Movies
-          </Link>
         </div>
         {/* 검색 탭 */}
-        <div className="col flex space-x-4 text-white">Search</div>
+        {/* <div className="col flex space-x-4 text-white">
+          <form onSubmit={onSubmit}>
+          <input type="text" value={text} onChange={onChange} class="border-solid border-2 text-black" placeholder="search" />
+          <button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokßLinejoin="round"
+              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+            />
+          </svg>
+          </button>
+          </form>
+          <ul>
+                {JSON.stringify(toSearch)}
+            </ul>
+        </div> */}
       </div>
     </div>
   );
 }
+function mapStateToProps(state) {
+  return {toSearch:state}
+}
+
+export default connect(mapStateToProps) (Header)
