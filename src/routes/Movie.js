@@ -1,11 +1,13 @@
-import React from 'react'
-import Header from '../components/Header'
+import React from "react";
+import Header from "../components/Header";
 
-export default function Movie() {
+import CurrentMovie from "../components/Movies/CurrentMovie";
+
+export default function Tv() {
   return (
     <div>
-        <Header />
-        movie page
+      <Header />
+      <CurrentMovie />
     </div>
-  )
+  );
 }
