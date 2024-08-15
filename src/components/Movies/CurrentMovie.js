@@ -1,26 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "../../routes/Movie.module.css";
-// import { useDispatch, useSelector } from "react-redux";
-// import { actionCreators } from "../../core/Store";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../core/Config";
 import MainImage from "./MainImage";
+import SlideCard from "../common/SlideCard";
+
 export default function CurrentTv() {
   const [movies, setMovies] = useState([]);
   const [MainMovieImg, setMainMovieImg] = useState(null);
+  const sliderRef = useRef(null);
+
   useEffect(() => {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     fetch(endpoint)
-      .then((reponse) => reponse.json())
+      .then((response) => response.json())
       .then((response) => {
         console.log(response);
-
-        setMovies([response.results]);
+        setMovies(response.results);
         setMainMovieImg(response.results[0]);
       });
   }, []);
+
+  const handleSlideRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollLeft += sliderRef.current.offsetWidth; // Move right by the width of the visible container
+    }
+  };
+
+  const handleSlideLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollLeft -= sliderRef.current.offsetWidth; // Move left by the width of the visible container
+    }
+  };
+
   return (
-    <div className={styles.body}>
-      <div className="p-4">
+      <div>
         {MainMovieImg && (
           <MainImage
             image={`${IMAGE_BASE_URL}w1280${MainMovieImg.backdrop_path}`}
@@ -29,10 +42,28 @@ export default function CurrentTv() {
           />
         )}
         <p className="text-4xl font-bold text-white">현재 상영중인 영화</p>
-        <div className="grid grid-cols-10 gap-4 p-4">
-          
+        <hr />
+
+        <div className={styles.sliderWrapper}>
+          <button className={`${styles.slideButton} left`} onClick={handleSlideLeft}>‹</button>
+          <div className={styles.sliderContainer} ref={sliderRef}>
+            {movies &&
+              movies.map((movie, index) => (
+                <SlideCard
+                  key={index}
+                  image={
+                    movie.poster_path
+                      ? `${IMAGE_BASE_URL}w500${movie.poster_path}`
+                      : null
+                  }
+                  movieId={movie.id}
+                  movieName={movie.original_title}
+                />
+              ))}
+          </div>
+          <button className={`${styles.slideButton} right`} onClick={handleSlideRight}>›</button>
         </div>
       </div>
-    </div>
+  
   );
 }
