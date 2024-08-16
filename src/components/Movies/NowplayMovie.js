@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../core/Config";
 import SlideCard from "../common/SlideCard";
+import styles from "../common/SlideCard.module.css";
 
-export default function TopMovie() {
+export default function NowplayMovie() {
   const [movies, setMovies] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+    const endpoint = `${API_URL}movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`;
     fetch(endpoint)
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         setMovies(response.results);
       });
   }, []);
@@ -28,18 +30,18 @@ export default function TopMovie() {
   };
 
   return (
-    <>
-      <p className="text-4xl font-bold text-white">인기 영화</p>
-      <hr />
+    <div>
+      <p className="my-8 text-4xl font-bold text-white">현재 상영중인 영화</p>
       <div className="flex items-center">
         <button
           onClick={prevSlide}
-          className="text-white bg-gray-700 p-2 rounded mr-2"
           disabled={currentIndex === 0}
-        > 
-        ‹
+          className={styles.button}
+        >
+          ‹
         </button>
-        <div className="grid grid-cols-8 gap-3">
+
+        <div className="grid grid-cols-8 gap-3 transition-transform duration-500 ease-out">
           {movies.slice(currentIndex, currentIndex + 8).map((movie, index) => (
             <SlideCard
               key={index}
@@ -55,12 +57,12 @@ export default function TopMovie() {
         </div>
         <button
           onClick={nextSlide}
-          className="text-white bg-gray-700 p-2 rounded ml-2"
           disabled={currentIndex + 8 >= movies.length}
+          className={styles.button}
         >
           ›
         </button>
       </div>
-    </>
+    </div>
   );
 }
