@@ -4,21 +4,16 @@ import SlideCard from "../common/SlideCard";
 import MainImage from "./MainImage";
 import styles from "../common/SlideCard.module.css";
 
-export default function TopMovie() {
+export default function PopularMovie({ fetchMovie }) {
   const [movies, setMovies] = useState([]);
   const [MainMovieImg, setMainMovieImg] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-    fetch(endpoint)
-      .then((response) => response.json())
-      .then((response) => {
-        setMovies(response.results);
-        setMainMovieImg(response.results[0]);
-      });
-  }, []);
-
+    fetchMovie(endpoint, setMovies, setMainMovieImg);
+  }, [fetchMovie]);
+  
   const nextSlide = () => {
     if (currentIndex + 8 < movies.length) {
       setCurrentIndex(currentIndex + 8);
