@@ -4,6 +4,7 @@ import styles from "./Common.module.css";
 
 import PopularMovie from "../components/Movies/PopularMovie";
 import NowplayMovie from "../components/Movies/NowplayMovie";
+import UpcomingMovie from "../components/Movies/UpcomingMovie";
 
 export default function Tv() {
   return (
@@ -13,6 +14,7 @@ export default function Tv() {
         <div className="p-6">
           <PopularMovie />
           <NowplayMovie />
+          <UpcomingMovie />
         </div>
       </div>
     </div>
