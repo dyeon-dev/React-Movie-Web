@@ -3,7 +3,7 @@ import styles from "./SlideCard.module.css";
 
 export default function SlideCard(props) {
   return (
-    <>
+    <div className={styles.card}>
       <a href={`/movie/${props.movieId}`}>
         <img
           src={props.image}
@@ -11,6 +11,6 @@ export default function SlideCard(props) {
           className={styles.poster}
         />
       </a>
-    </>
+    </div>
   );
 }

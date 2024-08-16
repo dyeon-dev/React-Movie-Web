@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../core/Config";
 import SlideCard from "../common/SlideCard";
-import MainImage from "./MainImage";
+import styles from "../common/SlideCard.module.css";
 
-export default function TopMovie() {
+export default function NowplayMovie() {
   const [movies, setMovies] = useState([]);
-  const [MainMovieImg, setMainMovieImg] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+    const endpoint = `${API_URL}movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`;
     fetch(endpoint)
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         setMovies(response.results);
-        setMainMovieImg(response.results[0]);
       });
   }, []);
 
@@ -31,27 +30,13 @@ export default function TopMovie() {
   };
 
   return (
-    <>
-    {MainMovieImg && (
-          <MainImage
-            image={`${IMAGE_BASE_URL}w1280${MainMovieImg.backdrop_path}`}
-            title={MainMovieImg.original_title}
-            text={MainMovieImg.overview}
-          />
-        )}
-      <p className="my-8 text-4xl font-bold text-white">인기 영화</p>
-
+    <div>
+      <p className="my-8 text-4xl font-bold text-white">현재 상영중인 영화</p>
       <div className="flex items-center">
         <button
           onClick={prevSlide}
           disabled={currentIndex === 0}
-          className="text-white bg-gray-700
-            md:rounded-full p-5  
-            hover:shadow-inner w-45 text-2xl  
-            transform hover:scale-125  
-            hover: transition  
-            ease-out duration-500
-            "
+          className={styles.button}
         >
           ‹
         </button>
@@ -73,17 +58,11 @@ export default function TopMovie() {
         <button
           onClick={nextSlide}
           disabled={currentIndex + 8 >= movies.length}
-          className="text-white bg-gray-700
-            md:rounded-full p-5  
-            hover:shadow-inner w-45 text-2xl  
-            transform hover:scale-125  
-            hover: transition  
-            ease-out duration-500
-            "
+          className={styles.button}
         >
           ›
         </button>
       </div>
-    </>
+    </div>
   );
 }

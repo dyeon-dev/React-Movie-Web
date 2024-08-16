@@ -1,7 +1,35 @@
-.poster {
+.card {
+    text-align: center;
+    transition: transform 0.5s ease-out;
+  }
+  
+  .card:hover {
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.25);
+  }
+
+  .poster {
     width: 200px;
     height: auto;
     flex-shrink: 0;
     border-radius: 10px;
     margin-right: 10px;
 }
+
+.button {
+    color: white;
+    background-color: #4a5568; /* bg-gray-700 */
+    padding: 1.25rem; /* p-5 */
+    border-radius: 45%; /* md:rounded-full */
+    font-size: 1.5rem; /* text-2xl */
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  }
+  
+  .button:hover {
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.3); /* hover:shadow-inner */
+    transform: scale(1.25); /* hover:scale-125 */
+  }
+
+  .button:disabled {
+    opacity: 0.8; 
+  }
