@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../core/Config";
 import SlideCard from "../common/SlideCard";
 import MainImage from "./MainImage";
+import styles from "../common/SlideCard.module.css";
 
 export default function TopMovie() {
   const [movies, setMovies] = useState([]);
@@ -45,13 +46,7 @@ export default function TopMovie() {
         <button
           onClick={prevSlide}
           disabled={currentIndex === 0}
-          className="text-white bg-gray-700
-            md:rounded-full p-5  
-            hover:shadow-inner w-45 text-2xl  
-            transform hover:scale-125  
-            hover: transition  
-            ease-out duration-500
-            "
+          className={styles.button}
         >
           ‹
         </button>
@@ -73,13 +68,7 @@ export default function TopMovie() {
         <button
           onClick={nextSlide}
           disabled={currentIndex + 8 >= movies.length}
-          className="text-white bg-gray-700
-            md:rounded-full p-5  
-            hover:shadow-inner w-45 text-2xl  
-            transform hover:scale-125  
-            hover: transition  
-            ease-out duration-500
-            "
+          className={styles.button}
         >
           ›
         </button>
