@@ -33,3 +33,22 @@
   .button:disabled {
     opacity: 0.8; 
   }
+
+
+
+  .info {
+    position: relative;
+    padding-left: 10px;
+  }
+  
+  .info::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    transform: translateY(-50%);
+    width: 0.25rem;
+    height: 0.25rem;
+    border-radius: 50%;
+    background-color: rgb(126, 126, 126);
+  }
