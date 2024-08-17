@@ -3,19 +3,15 @@ import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../core/Config";
 import SlideCard from "../common/SlideCard";
 import styles from "../common/SlideCard.module.css";
 
-export default function UpcomingMovie() {
+export default function UpcomingMovie({ fetchMovies }) {
   const [movies, setMovies] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const endpoint = `${API_URL}movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`;
-    fetch(endpoint)
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response);
-        setMovies(response.results);
-      });
-  }, []);
+    fetchMovies(endpoint, setMovies);
+  }, [fetchMovies]);
+
 
   const nextSlide = () => {
     if (currentIndex + 8 < movies.length) {
