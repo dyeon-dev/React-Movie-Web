@@ -9,6 +9,7 @@ export default function Detail({ movieId, onClose }) {
   // const [open, setOpen] = useState(true);
 
   const [Movie, setMovie] = useState(null);
+  const [Casts, setCasts] = useState([]);
 
   useEffect(() => {
     let endpointCrew = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
@@ -20,7 +21,15 @@ export default function Detail({ movieId, onClose }) {
         setMovie(response);
         console.log(response);
       });
-  }, []);
+
+      fetch(endpointCrew)
+      .then((response) => response.json())
+      .then((response) => {
+        setCasts(response.cast.slice(0, 3));
+        console.log("endpointCrew: ",response.cast);
+      });
+  }, [movieId]);
+
   if (!Movie) return null;
   let voteAverage = Movie.vote_average.toFixed(1);
   return (
@@ -29,7 +38,7 @@ export default function Detail({ movieId, onClose }) {
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <DialogPanel
             transition
-            className="relsative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-5xl data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
+            className="relsative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-5xl data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
           >
             <div className="bg-black px-4 pb-4 pt-5">
               <MainImage
@@ -61,6 +70,15 @@ export default function Detail({ movieId, onClose }) {
                     <StarRating voteAverage={voteAverage}/>
                   </DialogTitle>
                   <div className="mt-2">
+                    <p className="text-lg text-white">
+                      Casts:{" "}
+                      {Casts.map((cast, index) => (
+                        <span key={index}>
+                          {cast.original_name}
+                          {index < Casts.length - 1 && ", "}
+                        </span>
+                      ))}
+                    </p>
                     <p className="text-sm text-white">{Movie.overview}</p>
                   </div>
                 </div>
