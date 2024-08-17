@@ -19,14 +19,12 @@ export default function Detail({ movieId, onClose }) {
       .then((response) => response.json())
       .then((response) => {
         setMovie(response);
-        console.log(response);
       });
 
       fetch(endpointCrew)
       .then((response) => response.json())
       .then((response) => {
         setCasts(response.cast.slice(0, 3));
-        console.log("endpointCrew: ",response.cast);
       });
   }, [movieId]);
 
