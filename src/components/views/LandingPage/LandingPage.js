@@ -48,7 +48,6 @@ export default function LandingPage() {
         </div>
         {/* 로그인/회원가입 */}
         <div className="flex justify-center items-center h-full">
-          <div className={styles.bgImg}></div>
           <div className="text-center">
             <div className={styles.center}>
             <p className="my-8 text-5xl font-bold text-white">영화, 시리즈 등을 무제한으로</p>
@@ -63,6 +62,7 @@ export default function LandingPage() {
               </Link>
             </div>
           </div>
+          <div className={styles.bgImg}></div>
         </div>
       </div>
     </div>
