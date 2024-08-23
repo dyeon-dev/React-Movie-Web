@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "./Home.module.css";
+import styles from "./LandingPage.module.css";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 
-export default function Home() {
+export default function LandingPage() {
   const Button = styled.button`
     background: red;
     color: white;

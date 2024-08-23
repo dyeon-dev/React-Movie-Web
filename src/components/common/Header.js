@@ -72,8 +72,5 @@ function Header(toSearch) {
     </div>
   );
 }
-function mapStateToProps(state) {
-  return {toSearch:state}
-}
 
-export default connect(mapStateToProps) (Header)
+export default Header

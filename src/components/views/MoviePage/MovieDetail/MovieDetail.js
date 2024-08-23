@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../core/Config";
-import MainImage from "../Movies/MainImage";
+import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../../Config";
+import MainImage from "../Sections/MainImage";
 import StarRating from "./StarRating";
-import styles from "../common/SlideCard.module.css"
+import styles from "./SlideCard.module.css"
 
-export default function Detail({ movieId, onClose }) {
+export default function MovieDetail({ movieId, onClose }) {
   // const [open, setOpen] = useState(true);
 
   const [Movie, setMovie] = useState(null);

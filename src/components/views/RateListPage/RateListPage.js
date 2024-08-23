@@ -1,11 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import Movie from "../components/Movie";
 import styles from "./RateList.module.css";
-import List from "../components/List";
-import ListItem from "../components/ListItem";
+import List from "./Sections/List";
+import ListItem from "./Sections/ListItem";
 
-export default function RateList() {
+export default function RateListPage() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   const getMovies = async () => {

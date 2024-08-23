@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import styles from "./SlideCard.module.css";
-import Detail from "./Detail";
+import MovieDetail from "./MovieDetail";
 export default function SlideCard(props) {
   
   const [showDetail, setShowDetail] = useState(false);
@@ -23,7 +23,7 @@ export default function SlideCard(props) {
           onClick={handleImageClick}
         />
       {showDetail && (
-        <Detail onClose={handleCloseDetail} movieId={props.movieId}/>
+        <MovieDetail onClose={handleCloseDetail} movieId={props.movieId}/>
       )}
     </div>
   );

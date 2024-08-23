@@ -1,12 +1,12 @@
 import React from "react";
-import Header from "../components/common/Header";
-import styles from "./Common.module.css";
+import Header from "../../common/Header";
+import styles from "../../common/Background.module.css";
 
-import PopularMovie from "../components/Movies/PopularMovie";
-import NowplayMovie from "../components/Movies/NowplayMovie";
-import UpcomingMovie from "../components/Movies/UpcomingMovie";
+import PopularMovie from "./Sections/PopularMovie";
+import NowplayMovie from "./Sections/NowplayMovie";
+import UpcomingMovie from "./Sections/UpcomingMovie";
 
-export default function Movie() {
+export default function MoviePage() {
   const fetchMovie = (endpoint, setMovies, setMainMovieImg) => {
     fetch(endpoint)
       .then((response) => response.json())
