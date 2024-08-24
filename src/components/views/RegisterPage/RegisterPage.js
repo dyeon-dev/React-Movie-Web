@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../_actions/user_action";
-
 import styles from "../LandingPage/LandingPage.module.css";
 import btn from "../../common/Button.module.css";
 import { css } from "@emotion/react";
