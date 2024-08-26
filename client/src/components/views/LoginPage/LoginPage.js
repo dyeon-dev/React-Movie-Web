@@ -31,7 +31,7 @@ function LoginPage() {
 
     dispatch(loginUser(body)).then((res) => {
       if (res.payload.loginSuccess) {
-        navigate("/");
+        navigate("/movie");
       } else {
         alert("로그인에 실패했습니다.");
       }

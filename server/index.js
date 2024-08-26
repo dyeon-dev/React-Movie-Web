@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 
 const config = require("./config/key");
 const { User } = require("./models/User");
+const { auth } = require("./middleware/auth.js");
 
 const mongoose = require("mongoose");
 mongoose
@@ -70,5 +71,40 @@ app.post('/api/users/login', async (req, res) => {
     }
 });
 
+// role 0 -> 일반 유저  role 0이 아니면 관리자
+// auth 미들웨어를 통과해야 다음으로 넘어감
+app.get("/api/users/auth", auth, (req, res) => {
+    // 여기까지 미들웨어를 통과해 왔다는 얘기는 Authentication이 true라는 말
+    res.status(200).json({
+    // auth에서 받아온 req
+      _id: req.user._id,
+      isAdmin: req.user.role === 0 ? false : true, // 정책에 따라 바꿀 수도 있다
+      isAuth: true,
+      email: req.user.email,
+      name: req.user.name,
+      lastname: req.user.lastname,
+      role: req.user.role,
+      image: req.user.image,
+    });
+  });
+
+  app.get('/api/users/logout', auth, async (req, res) => {
+    try {
+      const user = await User.findOneAndUpdate(
+        { _id: req.user._id },
+        { token: "" }
+      );
+  
+      if (!user) {
+        return res.status(400).json({ success: false, message: 'User not found' });
+      }
+  
+      return res.status(200).send({
+        success: true
+      });
+    } catch (err) {
+      return res.status(500).json({ success: false, err });
+    }
+  });
 const port = 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
