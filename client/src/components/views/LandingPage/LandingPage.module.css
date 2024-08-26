@@ -1,0 +1,19 @@
+.body {
+    margin: 0;
+    height: 1500px;
+    background: black;
+    display: flex;
+    align-items: center;
+}
+.bgImg {
+    background: linear-gradient(to top, black, transparent);
+    position: absolute;
+    left: 0;
+    height: 110%;
+    width: 100%;
+    z-index: 1;
+}
+.center {
+    position: relative;
+    z-index: 2;
+}
