@@ -1,25 +1,27 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../_actions/user_action";
+
 import styles from "../LandingPage/LandingPage.module.css";
 import btn from "../../common/Button.module.css";
 import { css } from "@emotion/react";
 
-function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
+function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onHandleChange = (e) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleChange = (e) => {
     const { value, type } = e.target;
     if (type === "email") setEmail(value);
     else if (type === "password") setPassword(value);
   };
 
-  const onSubmitHandler = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const body = {
@@ -28,14 +30,13 @@ function LoginPage() {
     };
 
     dispatch(loginUser(body)).then((res) => {
-      if (res.payload.success) {
-        navigate("/movie");
+      if (res.payload.loginSuccess) {
+        navigate("/");
       } else {
-        alert("로그인에 실패하셨습니다.");
+        alert("로그인에 실패했습니다.");
       }
     });
   };
-
 
   return (
     <div className={`${styles.body} flex-col`}>
@@ -66,11 +67,11 @@ function LoginPage() {
           </svg>
         </div>
 
-        {/* 회원가입 */}
+        {/* 로그인 */}
         <div className="flex justify-center items-center">
           <div className="text-center">
             <div className={styles.center}>
-            <form onSubmit={onSubmitHandler} style={{ background: 'black', opacity: 0.85, padding: '2rem', width: '500px', borderRadius: '8px', color: 'white' }}>
+            <form onSubmit={handleSubmit} style={{ background: 'black', opacity: 0.85, padding: '2rem', width: '500px', borderRadius: '8px', color: 'white' }}>
             <div className="space-y-12">
                   <div className="border-b border-gray-900/10 pb-12">
                     <h2 className="my-4 text-3xl font-bold leading-7">로그인</h2>
@@ -86,7 +87,7 @@ function LoginPage() {
                         <div className="mt-2">
                           <input
                             value={email}
-                            onChange={onHandleChange}
+                            onChange={handleChange}
                             type="email"
                             name="email"
                             autoComplete="email"
@@ -103,7 +104,7 @@ function LoginPage() {
                           <input
                             value={password}
                             name="password"
-                            onChange={onHandleChange}
+                            onChange={handleChange}
                             type="password"
                             autoComplete="new-password"
                             className="text-black block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -121,7 +122,7 @@ function LoginPage() {
                     </button>
                   </Link>
 
-                  <button type="submit" className={btn.okButton}>
+                  <button className={btn.okButton}>
                     확인
                   </button>
                 </div>
@@ -134,5 +135,4 @@ function LoginPage() {
     </div>
   );
 }
-
-export default LoginPage;
+export default LoginPage
