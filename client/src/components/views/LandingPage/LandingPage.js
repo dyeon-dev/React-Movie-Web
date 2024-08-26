@@ -1,23 +1,10 @@
 import React from "react";
 import styles from "./LandingPage.module.css";
-import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
+import btn from "../../common/Button.module.css";
 
 export default function LandingPage() {
-  const Button = styled.button`
-    background: red;
-    color: white;
-    padding: 0.3em 1em;
-    margin: 6px;
-    font-size: 1.7em;
-    border-radius: 6px;
-    &:hover {
-      border-color: red;
-      box-shadow: 0 0.5em 0.5em -0.4em white;
-    }
-  `;
-
   return (
     <div className={`${styles.body} flex-col`}>
       {/* 배경이미지 */}
@@ -55,10 +42,10 @@ export default function LandingPage() {
                 시청할 준비가 되셨나요? 로그인을 하거나 회원가입을 해주세요.
               </p>
               <Link to="/login">
-                <Button>로그인</Button>
+                <button className={btn.okButton}>로그인</button>
               </Link>
               <Link to="/register">
-                <Button>회원가입</Button>
+              <button className={btn.cancelButton}>회원가입</button>
               </Link>
             </div>
           </div>
