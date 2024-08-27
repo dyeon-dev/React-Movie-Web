@@ -6,6 +6,8 @@ import styles from "../LandingPage/LandingPage.module.css";
 import btn from "../../common/Button.module.css";
 import { css } from "@emotion/react";
 
+import Auth from "../../../hoc/auth"
+
 function RegisterPage() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -181,4 +183,4 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+export default Auth(RegisterPage, false);

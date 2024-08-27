@@ -7,6 +7,7 @@ import styles from "../LandingPage/LandingPage.module.css";
 import btn from "../../common/Button.module.css";
 import { css } from "@emotion/react";
 
+import Auth from "../../../hoc/auth"
 
 function LoginPage() {
   const dispatch = useDispatch();
@@ -135,4 +136,4 @@ function LoginPage() {
     </div>
   );
 }
-export default LoginPage
+export default LoginPage;

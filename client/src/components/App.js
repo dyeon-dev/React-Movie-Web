@@ -6,7 +6,7 @@ import MoviePage from "./views/MoviePage/MoviePage";
 import LoginPage from "./views/LoginPage/LoginPage";
 import TvPage from './views/TvPage/TvPage'
 import RegisterPage from "./views/RegisterPage/RegisterPage";
-
+import Auth from '../hoc/auth'
 
 function App() {
   return (

@@ -6,7 +6,9 @@ import PopularMovie from "./Sections/PopularMovie";
 import NowplayMovie from "./Sections/NowplayMovie";
 import UpcomingMovie from "./Sections/UpcomingMovie";
 
-export default function MoviePage() {
+import Auth from "../../../hoc/auth"
+
+function MoviePage() {
   const fetchMovie = (endpoint, setMovies, setMainMovieImg) => {
     fetch(endpoint)
       .then((response) => response.json())
@@ -36,3 +38,5 @@ export default function MoviePage() {
     </div>
   );
 }
+
+export default Auth(MoviePage, true);

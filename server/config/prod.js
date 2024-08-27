@@ -1,5 +1,4 @@
-// 배포한 후 환경변수 
-// production
-module.exports={
-    mongoURI: process.env.MONGO_URL
-}
+// 개발환경이 아닌 실제 배포환경
+module.exports = {
+  mongoURI: process.env.MONGO_URI,
+};
