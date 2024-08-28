@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import styles from "./SlideCard.module.css";
+import styles from "../../../common/SlideCard.module.css";
 import TvDetail from "./TvDetail";
 export default function SlideCard(props) {
   

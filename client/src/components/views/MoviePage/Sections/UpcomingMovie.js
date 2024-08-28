@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../../Config";
 import SlideCard from "../MovieDetail/SlideCard";
-import styles from "../MovieDetail/SlideCard.module.css";
+import styles from "../../../common/SlideCard.module.css";
 
 export default function UpcomingMovie({ fetchMovies }) {
   const [movies, setMovies] = useState([]);

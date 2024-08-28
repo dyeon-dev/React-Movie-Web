@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../../Config";
 import MainImage from "../Sections/MainImage";
-import StarRating from "./StarRating";
-import styles from "./SlideCard.module.css"
+import StarRating from "../../../common/StarRating";
+import styles from "../../../common/SlideCard.module.css"
 
 export default function MovieDetail({ movieId, onClose }) {
   // const [open, setOpen] = useState(true);

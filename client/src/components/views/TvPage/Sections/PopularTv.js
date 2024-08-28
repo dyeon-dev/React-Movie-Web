@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../../Config";
 import SlideCard from "../TvDetail/SlideCard";
-import styles from "../TvDetail/SlideCard.module.css";
+import styles from "../../../common/SlideCard.module.css";
 import MainImage from "./MainImage";
 
 export default function PopularTv({ fetchTv }) {
