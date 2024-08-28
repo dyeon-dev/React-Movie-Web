@@ -6,7 +6,7 @@ import MoviePage from "./views/MoviePage/MoviePage";
 import LoginPage from "./views/LoginPage/LoginPage";
 import TvPage from './views/TvPage/TvPage'
 import RegisterPage from "./views/RegisterPage/RegisterPage";
-import Auth from '../hoc/auth'
+import SearchPage from "./views/SearchPage/SearchPage";
 
 function App() {
   return (
@@ -17,6 +17,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/movie" element={<MoviePage />} />
         <Route path="/tv" element={<TvPage />} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/ratelists" element={<RateListPage />} />
         </Routes>
     </Router>

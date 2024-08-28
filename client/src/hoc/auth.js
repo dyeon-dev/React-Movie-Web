@@ -15,23 +15,17 @@ export default function (SpecificComponent, option, adminRoute = null) {
 
     
     useEffect(() => {
-      console.log("Option:", option);
       dispatch(auth()).then(response => {
         console.log("Auth Response:", response);
     
-        // If the user is not authenticated
         if (!response.payload.isAuth) {
-          // If the option is true, redirect to login
           if (option === true) {
             navigate('/login');
           }
         } else {
-          // If the user is authenticated
           if (adminRoute && !response.payload.isAdmin) {
-            // If it's an admin route and the user is not an admin, redirect to the homepage
             navigate('/');
           } else {
-            // If the option is false, redirect to the homepage
             if (option === false) {
               navigate('/');
             }

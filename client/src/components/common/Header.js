@@ -3,19 +3,21 @@ import { css } from "@emotion/react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-import { connect } from "react-redux";
-import btn from "./Button.module.css";
-
 function Header(toSearch) {
   const [text, setText] = useState("");
+  const navigate = useNavigate();
+
   function onChange(e) {
     setText(e.target.value);
   }
   function onSubmit(e) {
     e.preventDefault();
-    setText("");
+    if (text.trim()) {
+      // 검색어가 포함된 페이지로 이동
+      navigate(`/search?query=${text}`);
+      setText("");
+    }
   }
-  const navigate = useNavigate();
 
   const handleClick = () => {
     axios.get("/api/users/logout").then((res) => {
@@ -84,6 +86,8 @@ function Header(toSearch) {
               <input
                 type="search"
                 id="default-search"
+                value={text}
+                onChange={onChange}
                 className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
                 placeholder="Search Movies.."
                 required

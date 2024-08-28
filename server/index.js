@@ -92,6 +92,8 @@ app.get("/api/users/auth", auth, async (req, res) => {
       res.status(500).json({ success: false, message: 'Server Error' });
   }
 });
+
+// 로그아웃
 app.get("/api/users/logout", auth, (req, res) => {
   console.log(req.user);
   User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {

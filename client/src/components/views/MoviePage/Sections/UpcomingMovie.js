@@ -3,14 +3,15 @@ import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../../Config";
 import SlideCard from "../MovieDetail/SlideCard";
 import styles from "../../../common/SlideCard.module.css";
 
-export default function UpcomingMovie({ fetchMovies }) {
+export default function UpcomingMovie({ fetchMovie }) {
   const [movies, setMovies] = useState([]);
+  const [MainMovieImg, setMainMovieImg] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const endpoint = `${API_URL}movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`;
-    fetchMovies(endpoint, setMovies);
-  }, [fetchMovies]);
+    fetchMovie(endpoint, setMovies, setMainMovieImg);
+  }, [fetchMovie]);
 
 
   const nextSlide = () => {
@@ -44,8 +45,8 @@ export default function UpcomingMovie({ fetchMovies }) {
               image={
                 movie.poster_path
                   ? `${IMAGE_BASE_URL}w500${movie.poster_path}`
-                  : null
-              }
+                  : 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Noimage.svg/1479px-Noimage.svg.png'
+                }
               movieId={movie.id}
               movieName={movie.original_title}
             />

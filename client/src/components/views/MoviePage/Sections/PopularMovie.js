@@ -53,8 +53,8 @@ export default function PopularMovie({ fetchMovie }) {
               image={
                 movie.poster_path
                   ? `${IMAGE_BASE_URL}w500${movie.poster_path}`
-                  : null
-              }
+                  : 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Noimage.svg/1479px-Noimage.svg.png'
+                }
               movieId={movie.id}
               movieName={movie.original_title}
             />

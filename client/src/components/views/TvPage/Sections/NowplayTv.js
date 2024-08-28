@@ -44,8 +44,8 @@ export default function NowplayTv({ fetchTv }) {
               image={
                 tv.poster_path
                   ? `${IMAGE_BASE_URL}w500${tv.poster_path}`
-                  : null
-              }
+                  : 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Noimage.svg/1479px-Noimage.svg.png'
+                }
               tvId={tv.id}
               tvName={tv.original_name}
             />
