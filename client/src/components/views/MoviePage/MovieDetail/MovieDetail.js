@@ -65,6 +65,7 @@ export default function MovieDetail({ movieId, onClose }) {
 
                     <br />
                     <StarRating voteAverage={voteAverage}/>
+                    <br />
                     <Favorite movieInfo={Movie} movieId={movieId} userForm={localStorage.getItem('userId')}/>
                   </DialogTitle>
                   <div className="mt-2">
