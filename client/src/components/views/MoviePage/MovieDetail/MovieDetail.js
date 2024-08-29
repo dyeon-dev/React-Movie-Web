@@ -4,10 +4,9 @@ import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../../Config";
 import MainImage from "../Sections/MainImage";
 import StarRating from "../../../common/StarRating";
 import styles from "../../../common/SlideCard.module.css"
+import Favorite from "../../../common/Favorite";
 
 export default function MovieDetail({ movieId, onClose }) {
-  // const [open, setOpen] = useState(true);
-
   const [Movie, setMovie] = useState(null);
   const [Casts, setCasts] = useState([]);
 
@@ -66,6 +65,7 @@ export default function MovieDetail({ movieId, onClose }) {
 
                     <br />
                     <StarRating voteAverage={voteAverage}/>
+                    <Favorite movieInfo={Movie} movieId={movieId} userForm={localStorage.getItem('userId')}/>
                   </DialogTitle>
                   <div className="mt-2">
                     <p className="text-lg text-white">

@@ -32,6 +32,7 @@ function LoginPage() {
 
     dispatch(loginUser(body)).then((res) => {
       if (res.payload.loginSuccess) {
+        window.localStorage.setItem('userId', res.payload.userId);
         navigate("/movie");
       } else {
         alert("로그인에 실패했습니다.");
@@ -136,4 +137,4 @@ function LoginPage() {
     </div>
   );
 }
-export default LoginPage;
+export default Auth(LoginPage, false);
