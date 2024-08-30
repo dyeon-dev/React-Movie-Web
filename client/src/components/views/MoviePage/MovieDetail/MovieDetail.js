@@ -3,8 +3,9 @@ import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../../Config";
 import MainImage from "../Sections/MainImage";
 import StarRating from "../../../common/StarRating";
-import styles from "../../../common/SlideCard.module.css"
+import styles from "../../../common/SlideCard.module.css";
 import Favorite from "../../../common/Favorite";
+import Comment from "../../../common/Comment";
 
 export default function MovieDetail({ movieId, onClose, movieImage }) {
   const [Movie, setMovie] = useState(null);
@@ -20,7 +21,7 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
         setMovie(response);
       });
 
-      fetch(endpointCrew)
+    fetch(endpointCrew)
       .then((response) => response.json())
       .then((response) => {
         setCasts(response.cast.slice(0, 3));
@@ -30,7 +31,7 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
   if (!Movie) return null;
   let voteAverage = Movie.vote_average.toFixed(1);
   return (
-    <Dialog open={true} onClose={onClose} className="relative z-10">
+    <Dialog open={true} onClose={onClose} className="relative z-10 text-white">
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <DialogPanel
@@ -46,30 +47,36 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
                 <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                   <DialogTitle
                     as="h3"
-                    className="text-base font-semibold leading-6 text-white"
+                    className="text-base font-semibold leading-6"
                   >
                     <div className="flex space-x-2 ">
                       <span className={styles.info}>{Movie.release_date}</span>
                       <span className={styles.info}>{Movie.runtime}m</span>
                       <span className={styles.info}>
-                      <div className="flex space-x-2">
-                        {Movie.genres &&
-                        Movie.genres.map((g, index) => (
-                          <p key={g.id}>
-                            {g.name}
-                            {index < Movie.genres.length - 1 && ","}
-                          </p>
-                        ))}</div>
-                        </span>
+                        <div className="flex space-x-2">
+                          {Movie.genres &&
+                            Movie.genres.map((g, index) => (
+                              <p key={g.id}>
+                                {g.name}
+                                {index < Movie.genres.length - 1 && ","}
+                              </p>
+                            ))}
+                        </div>
+                      </span>
                     </div>
 
                     <br />
-                    <StarRating voteAverage={voteAverage}/>
+                    <StarRating voteAverage={voteAverage} />
                     <br />
-                    <Favorite movieInfo={Movie} movieId={movieId} movieImage={movieImage} userFrom={localStorage.getItem('userId')}/>
+                    <Favorite
+                      movieInfo={Movie}
+                      movieId={movieId}
+                      movieImage={movieImage}
+                      userFrom={localStorage.getItem("userId")}
+                    />
                   </DialogTitle>
                   <div className="mt-2">
-                    <p className="text-lg text-white">
+                    <p className="text-lg ">
                       Casts:{" "}
                       {Casts.map((cast, index) => (
                         <span key={index}>
@@ -78,8 +85,9 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
                         </span>
                       ))}
                     </p>
-                    <p className="text-sm text-white">{Movie.overview}</p>
+                    <p className="text-sm">{Movie.overview}</p>
                   </div>
+                  <Comment postId={movieId}/>
                 </div>
               </div>
             </div>
