@@ -2,8 +2,6 @@
     margin: 0;
     height: 1500px;
     background: black;
-    display: flex;
-    align-items: center;
 }
 .bgImg {
     background: linear-gradient(to top, black, transparent);

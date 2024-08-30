@@ -6,7 +6,7 @@ import StarRating from "../../../common/StarRating";
 import styles from "../../../common/SlideCard.module.css"
 import Favorite from "../../../common/Favorite";
 
-export default function MovieDetail({ movieId, onClose }) {
+export default function MovieDetail({ movieId, onClose, movieImage }) {
   const [Movie, setMovie] = useState(null);
   const [Casts, setCasts] = useState([]);
 
@@ -66,7 +66,7 @@ export default function MovieDetail({ movieId, onClose }) {
                     <br />
                     <StarRating voteAverage={voteAverage}/>
                     <br />
-                    <Favorite movieInfo={Movie} movieId={movieId} userForm={localStorage.getItem('userId')}/>
+                    <Favorite movieInfo={Movie} movieId={movieId} movieImage={movieImage} userFrom={localStorage.getItem('userId')}/>
                   </DialogTitle>
                   <div className="mt-2">
                     <p className="text-lg text-white">

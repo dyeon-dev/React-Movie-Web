@@ -23,7 +23,7 @@ export default function SlideCard(props) {
           onClick={handleImageClick}
         />
       {showDetail && (
-        <MovieDetail onClose={handleCloseDetail} movieId={props.movieId}/>
+        <MovieDetail onClose={handleCloseDetail} movieId={props.movieId} movieImage={props.image}/>
       )}
     </div>
   );

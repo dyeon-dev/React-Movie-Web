@@ -51,8 +51,21 @@ router.post('/addToFavorite', (req, res) => {
     const favorite = new Favorite(req.body)
     favorite.save((err, doc)=> {
         if(err) return res.status(400).send(err)
-        return res.status(200).json({ success: true })
+        return res.status(200).json({ success: true, doc })
     })
 })
+
+// 좋아요 리스트 반환
+router.post('/getFavoriteMovie', (req, res) => {
+    // userFrom 필드가 req.body.userFrom의 값과 일치하는 favorites 컬렉션의 모든 문서를 검색
+    Favorite.find({ 'userFrom': req.body.userFrom })
+        .exec((err, favorites) => {
+            if (err) return res.status(400).send(err);
+            if (favorites.length === 0) {
+                console.log("No favorite movies found for this user.");
+            }
+            return res.status(200).json({ success: true, favorites });
+        });
+});
 
 module.exports = router

@@ -1,6 +1,4 @@
 import React from "react";
-import Header from "../../common/Header";
-import styles from "../../common/Background.module.css";
 
 import PopularTv from "./Sections/PopularTv";
 import NowplayTv from "./Sections/NowplayTv";
@@ -21,8 +19,7 @@ function TvPage() {
 
   return (
     <div>
-      <div className={styles.body}>
-        <Header />
+      <div className="bg-black text-white">
         <div className="p-6">
           <PopularTv fetchTv={fetchTvs} />
           <NowplayTv fetchTv={fetchTvs} />

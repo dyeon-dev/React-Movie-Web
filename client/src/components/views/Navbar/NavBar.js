@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-function Header(toSearch) {
+function NavBar() {
   const [text, setText] = useState("");
   const navigate = useNavigate();
 
@@ -59,12 +59,6 @@ function Header(toSearch) {
           </Link>
           {/* 검색 탭 */}
           <form className="max-w-lg" onSubmit={onSubmit}>
-            <label
-              htmlFor="default-search"
-              className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-            >
-              검색
-            </label>
             <div className="relative">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg
@@ -101,16 +95,24 @@ function Header(toSearch) {
             </div>
           </form>
         </div>
+        <div className="flex space-x-4 items-center text-white">
+        <Link to="/favorites"
+          className="underline font-medium text-sm flex items-center justify-center"
+        >
+          My Page
+        </Link>
         {/* 로그아웃 버튼 */}
         <div
           onClick={handleClick}
-          className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl py-2 px-4 flex items-center justify-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+          className="bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm py-2 px-4 flex items-center justify-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
         >
           로그아웃
         </div>
+        </div>
+        
       </div>
     </div>
   );
 }
 
-export default Header;
+export default NavBar;

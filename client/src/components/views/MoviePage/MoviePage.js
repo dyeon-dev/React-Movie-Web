@@ -1,6 +1,4 @@
 import React from "react";
-import Header from "../../common/Header";
-import styles from "../../common/Background.module.css";
 
 import PopularMovie from "./Sections/PopularMovie";
 import NowplayMovie from "./Sections/NowplayMovie";
@@ -21,8 +19,7 @@ function MoviePage() {
   };
   return (
     <div>
-      <div className={styles.body}>
-        <Header />
+      <div className="bg-black text-white">
         <div className="p-6">
           <PopularMovie fetchMovie={fetchMovies} />
           <NowplayMovie fetchMovie={fetchMovies} />

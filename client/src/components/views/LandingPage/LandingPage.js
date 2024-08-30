@@ -34,7 +34,7 @@ function LandingPage() {
   };
 
   return (
-    <div className={`${styles.body} flex-col`}>
+    <div className={`${styles.body} -mt-8`}>
       {/* 배경이미지 */}
       <div
         className="bg-cover bg-center w-full h-screen relative"
@@ -70,12 +70,13 @@ function LandingPage() {
                 시청할 준비가 되셨나요? 로그인을 하거나 회원가입을 해주세요.
               </p>
               {isAuth ? (
-                // User is authenticated, show the Logout button
-                <Link to="/">
+                <>
                    <button onClick={handleClick} className={btn.okButton}>로그아웃</button>
+                <Link to="/movie">
+                   <button className={btn.cancelButton}>홈으로</button>
                 </Link>
+                </>
               ) : (
-                // User is not authenticated, show the Login and Signup buttons
                 <>
                   <Link to="/login">
                     <button className={btn.okButton}>로그인</button>

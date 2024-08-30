@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../Config";
 import styles from "../../common/SlideCard.module.css";
-import bg from "../../common/Background.module.css";
 
-import Header from "../../common/Header";
 import MovieDetail from "../MoviePage/MovieDetail/MovieDetail";
 
 function useQuery() {
@@ -39,8 +37,7 @@ function SearchPage() {
 
   return (
     <div>
-      <div className={bg.body}>
-        <Header />
+      <div className="bg-black text-white">
         <div className="p-6">
           <p className="my-8 text-xl font-bold text-white">
             "{query.get("query")}"(으)로 검색한 결과입니다.
