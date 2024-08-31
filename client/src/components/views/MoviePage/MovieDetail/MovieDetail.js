@@ -5,11 +5,14 @@ import MainImage from "../Sections/MainImage";
 import StarRating from "../../../common/StarRating";
 import styles from "../../../common/SlideCard.module.css";
 import Favorite from "../../../common/Favorite";
-import Comment from "../../../common/Comment";
+import Comment from "../../../common/Comment/Comment";
+
+import axios from 'axios';
 
 export default function MovieDetail({ movieId, onClose, movieImage }) {
   const [Movie, setMovie] = useState(null);
   const [Casts, setCasts] = useState([]);
+  const [CommentLists, setCommentLists] = useState([])
 
   useEffect(() => {
     let endpointCrew = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
@@ -26,6 +29,17 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
       .then((response) => {
         setCasts(response.cast.slice(0, 3));
       });
+
+      // 댓글 정보 가져오기
+      axios.post('/api/comment/getComments', movieId)
+      .then(response => {
+          console.log(response)
+          if (response.data.success) {
+             setCommentLists(response.data.comments)
+          } else {
+              alert('댓글을 가져오는데 실패했습니다.')
+          }
+      })
   }, [movieId]);
 
   if (!Movie) return null;
@@ -87,7 +101,7 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
                     </p>
                     <p className="text-sm">{Movie.overview}</p>
                   </div>
-                  <Comment postId={movieId}/>
+                  <Comment postId={movieId} CommentLists={CommentLists} />
                 </div>
               </div>
             </div>
