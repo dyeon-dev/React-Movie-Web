@@ -41,6 +41,11 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
           }
       })
   }, [movieId]);
+  
+  // 자식 컴포넌트로부터 댓글 업데이트 받기 
+  const refreshFunction = (newComment) => {
+    setCommentLists(CommentLists.concat(newComment))
+}
 
   if (!Movie) return null;
   let voteAverage = Movie.vote_average.toFixed(1);
@@ -101,7 +106,7 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
                     </p>
                     <p className="text-sm">{Movie.overview}</p>
                   </div>
-                  <Comment postId={movieId} CommentLists={CommentLists} />
+                  <Comment postId={movieId} CommentLists={CommentLists} refreshFunction={refreshFunction} />
                 </div>
               </div>
             </div>

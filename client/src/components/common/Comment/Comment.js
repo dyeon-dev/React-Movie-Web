@@ -21,6 +21,8 @@ function Comment(props) {
     Axios.post("/api/comment/saveComment", variables).then((res) => {
       if (res.data.success) {
         setComment("");
+        // 부모 컴포넌트로 댓글 업데이트 해주기
+        props.refreshFunction(res.data.result)
       } else {
         alert("댓글을 저장하지 못했습니다.");
       }
@@ -40,7 +42,7 @@ function Comment(props) {
             props.CommentLists.map(
               (comment, index) =>
                 !comment.responseTo && (
-                  <SingleComments postId={props.postId} comment={comment} />
+                  <SingleComments refreshFunction={props.refreshFunction} postId={props.postId} comment={comment} />
                 )
             )}
 
