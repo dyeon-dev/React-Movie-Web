@@ -12,7 +12,7 @@ import axios from 'axios';
 export default function MovieDetail({ movieId, onClose, movieImage }) {
   const [Movie, setMovie] = useState(null);
   const [Casts, setCasts] = useState([]);
-  const [CommentLists, setCommentLists] = useState([])
+  const [commentLists, setCommentLists] = useState([])
 
   useEffect(() => {
     let endpointCrew = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
@@ -44,7 +44,7 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
   
   // 자식 컴포넌트로부터 댓글 업데이트 받기 
   const refreshFunction = (newComment) => {
-    setCommentLists(CommentLists.concat(newComment))
+    setCommentLists(commentLists.concat(newComment))
 }
 
   if (!Movie) return null;
@@ -106,7 +106,7 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
                     </p>
                     <p className="text-sm">{Movie.overview}</p>
                   </div>
-                  <Comment postId={movieId} CommentLists={CommentLists} refreshFunction={refreshFunction} />
+                  <Comment movieId={movieId} commentLists={commentLists} refreshFunction={refreshFunction} />
                 </div>
               </div>
             </div>

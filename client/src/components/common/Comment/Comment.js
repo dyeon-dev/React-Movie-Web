@@ -1,7 +1,8 @@
 import Axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import SingleComments from "./Sections/SingleComments";
+import SingleComment from "./Sections/SingleComment";
+import ReplyComment from "./Sections/ReplyComment";
 
 function Comment(props) {
   const [comment, setComment] = useState("");
@@ -16,13 +17,13 @@ function Comment(props) {
     const variables = {
       content: comment,
       writer: user.userData._id, // redux에 저장된 userData 값 가져오기
-      post: props.postId,
+      movieId: props.movieId,
     };
     Axios.post("/api/comment/saveComment", variables).then((res) => {
       if (res.data.success) {
         setComment("");
-        // 부모 컴포넌트로 댓글 업데이트 해주기
-        props.refreshFunction(res.data.result)
+        // 받아온 댓글에 대한 정보를 부모 컴포넌트로 업데이트 해주기
+        props.refreshFunction(res.data.result);
       } else {
         alert("댓글을 저장하지 못했습니다.");
       }
@@ -38,11 +39,26 @@ function Comment(props) {
             </h2>
           </div>
           {/* 답글이 없는 댓글만 Comment Lists 뿌려주기 */}
-          {props.CommentLists &&
-            props.CommentLists.map(
+          {props.commentLists &&
+            props.commentLists.map(
               (comment, index) =>
                 !comment.responseTo && (
-                  <SingleComments refreshFunction={props.refreshFunction} postId={props.postId} comment={comment} />
+                  <React.Fragment key={index}>
+                    {/* 첫번째 depth의 댓글만 보임 */}
+                    <SingleComment
+                      refreshFunction={props.refreshFunction}
+                      movieId={props.movieId}
+                      comment={comment}
+                    />
+                    {/* 두번째 depth의 댓글부터 답글로 보임 */}
+                    <ReplyComment
+                    refreshFunction={props.refreshFunction}
+                    // 부모댓글 id는 현재 컴포넌트의 id가 됨
+                      parentCommentId={comment._id}
+                      movieId={props.movieId}
+                      commentLists={props.commentLists}
+                    />
+                  </React.Fragment>
                 )
             )}
 
