@@ -47,12 +47,18 @@ function Comment(props) {
                     {/* 첫번째 depth의 댓글만 보임 */}
                     <SingleComment
                       refreshFunction={props.refreshFunction}
+                      refreshRemoveFunction={props.refreshRemoveFunction}
+                      refreshEditFunction={props.refreshEditFunction}
                       movieId={props.movieId}
                       comment={comment}
+                      commentLists={props.commentLists}
                     />
                     {/* 두번째 depth의 댓글부터 답글로 보임 */}
                     <ReplyComment
                     refreshFunction={props.refreshFunction}
+                    refreshRemoveFunction={props.refreshRemoveFunction}
+                    refreshEditFunction={props.refreshEditFunction}
+
                     // 부모댓글 id는 현재 컴포넌트의 id가 됨
                       parentCommentId={comment._id}
                       movieId={props.movieId}

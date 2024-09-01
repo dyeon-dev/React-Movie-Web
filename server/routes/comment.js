@@ -35,4 +35,28 @@ router.post("/getComments", (req, res) => {
         })
 });
 
+// 댓글 수정
+router.post("/editComment", (req, res) => {
+    Comment.findOneAndUpdate(
+      { _id: req.body.commentId },
+      { content: req.body.content },
+      { new: true }  // Return the updated document
+    )
+      .populate('writer')
+      .exec((err, updatedComment) => {
+        if (err) return res.status(400).send(err);
+        return res.status(200).json({ success: true, updatedComment });
+      });
+  });
+  
+
+// 댓글 삭제
+router.post("/removeComment", (req, res) => {
+    Comment.findOneAndDelete({ _id: req.body.commentId })
+    .exec((err) => {
+        if(err) return res.status(400).send(err)
+        res.status(200).json({ success: true })
+    })
+});
+
 module.exports = router

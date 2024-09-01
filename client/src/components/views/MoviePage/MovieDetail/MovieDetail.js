@@ -42,10 +42,30 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
       })
   }, [movieId]);
   
-  // 자식 컴포넌트로부터 댓글 업데이트 받기 
+  // 자식 컴포넌트로부터 추가된 댓글 업데이트 받기 
   const refreshFunction = (newComment) => {
     setCommentLists(commentLists.concat(newComment))
 }
+
+// 자식 컴포넌트로부터 수정된 댓글 업데이트 받기 
+const refreshEditFunction = (newComment) => {
+  setCommentLists((prevComments) => {
+      // findIndex를 사용하여 현재 댓글 목록에 newComment가 이미 존재하는지 확인
+      const index = prevComments.findIndex(comment => comment._id === newComment._id);
+
+      if (index !== -1) {
+        // 댓글이 이미 존재하는 경우 이전 댓글을 대체하는 업데이트된 댓글로 새 배열이 생성된다.
+        const updatedComments = [...prevComments];
+        updatedComments[index] = newComment;
+        return updatedComments;
+      } 
+  });
+}
+
+// 자식 컴포넌트로부터 삭제된 댓글 업데이트 받기
+const refreshRemoveFunction = (updatedComments) => {
+  setCommentLists(updatedComments);
+};
 
   if (!Movie) return null;
   let voteAverage = Movie.vote_average.toFixed(1);
@@ -106,7 +126,7 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
                     </p>
                     <p className="text-sm">{Movie.overview}</p>
                   </div>
-                  <Comment movieId={movieId} commentLists={commentLists} refreshFunction={refreshFunction} />
+                  <Comment movieId={movieId} commentLists={commentLists} refreshFunction={refreshFunction} refreshRemoveFunction={refreshRemoveFunction} refreshEditFunction={refreshEditFunction}/>
                 </div>
               </div>
             </div>

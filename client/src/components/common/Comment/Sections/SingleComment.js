@@ -7,12 +7,21 @@ function SingleComment(props) {
   const [comment, setComment] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const [editedContent, setEditedContent] = useState(props.comment.content);
+  const [isEditing, setIsEditing] = useState(false);
+
   const onClickReplyOpen = () => {
     setOpenReply(!openReply);
   };
+  
   const handleChange = (e) => {
     setComment(e.currentTarget.value);
   };
+
+  const handleEditChange = (e) => {
+    setEditedContent(e.currentTarget.value);
+  };
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -41,39 +50,42 @@ function SingleComment(props) {
   };
 
   const onClickEdit = () => {
-    const variable = {
-      movieId: props.movieId,
+    const variables = {
+      commentId: props.comment._id,
+      content: editedContent
     }
       // 댓글 수정
-      Axios.post("/api/comment/editComments", variable).then(
+      Axios.post("/api/comment/editComment", variables).then(
         (response) => {
           if (response.data.success) {
-            setComment("");
+            props.refreshEditFunction(response.data.updatedComment);
+            setIsEditing(false);
           } else {
             alert("댓글 수정을 실패했습니다.");
           }
         }
       );
-    
   };
 
   const onClickRemove = () => {
-    const variable = {
-      movieId: props.movieId,
+    const variables = {
+      commentId: props.comment._id
     }
       // 댓글 삭제
-      Axios.post("/api/comment/removeComments", variable).then(
+      Axios.post("/api/comment/removeComment", variables).then(
         (response) => {
           if (response.data.success) {
-            setComment("");
+            const updatedComments = props.commentLists.filter(
+              (comment) => comment._id !== props.comment._id
+            );
+            props.refreshRemoveFunction(updatedComments);
           } else {
             alert("댓글 삭제를 실패했습니다.");
           }
         }
       );
-    
   };
-
+  
   return (
     <div className="max-w-2xl mx-auto px-4">
       {/* 댓글 보여주는 부분 */}
@@ -129,7 +141,10 @@ function SingleComment(props) {
                 >
                   <li>
                     <a
-                      onClick={onClickEdit}
+                       onClick={() => {
+                        setIsEditing(true);
+                        toggleDropdown();
+                      }}
                       className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
                       Edit
@@ -149,11 +164,28 @@ function SingleComment(props) {
           </div>
         </footer>
 
-        {/* comment */}
-        <p className="text-gray-500 dark:text-gray-400">
-          {props.comment.content}
-        </p>
-
+        {isEditing ? (
+          <div>
+            <textarea
+              value={editedContent}
+              onChange={handleEditChange}
+              rows="4"
+              className="w-full p-2 mb-4 text-sm text-gray-900 bg-gray-100 rounded dark:bg-gray-700 dark:text-white"
+            />
+            <button
+              onClick={onClickEdit}
+              className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+            >
+              Save
+            </button>
+          </div>
+        ) : (
+          // comment
+          <p className="text-gray-500 dark:text-gray-400">
+            {props.comment.content}
+          </p>
+        )}
+        
         {/* Reply */}
         <div className="flex items-center mt-4 space-x-4">
           <button

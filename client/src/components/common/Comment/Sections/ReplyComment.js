@@ -17,27 +17,42 @@ export default function ReplyComment(props) {
 }, [props.commentLists, props.parentCommentId]);
 
 const renderReplyComment = (parentCommentId) => {
-    return props.commentLists.map((comment, index) => {
-      if (comment.responseTo === parentCommentId) {
-        return (
-          <div key={index} style={{ width: "80%", marginLeft: "40px" }}>
-            <SingleComment
-              refreshFunction={props.refreshFunction}
-              movieId={props.movieId}
-              comment={comment}
-            />
-            <ReplyComment
-              refreshFunction={props.refreshFunction}
-              commentLists={props.commentLists}
-              parentCommentId={comment._id}
-              movieId={props.movieId}
-            />
-          </div>
-        );
-      }
+  return props.commentLists.map((comment, index) => {
+    // Check if the comment exists and has the property 'responseTo'
+    if (comment && comment.responseTo) {
+      return (
+        <React.Fragment key={index}>
+          {comment.responseTo === parentCommentId && (
+            <div style={{ width: '80%', marginLeft: '40px' }}>
+              <SingleComment
+                refreshFunction={props.refreshFunction}
+                refreshRemoveFunction={props.refreshRemoveFunction}
+                refreshEditFunction={props.refreshEditFunction}
+
+                movieId={props.movieId}
+                comment={comment}
+                commentLists={props.commentLists}
+              />
+              <ReplyComment
+                refreshFunction={props.refreshFunction}
+                refreshRemoveFunction={props.refreshRemoveFunction}
+                refreshEditFunction={props.refreshEditFunction}
+
+                commentLists={props.commentLists}
+                parentCommentId={comment._id}
+                movieId={props.movieId}
+              />
+            </div>
+          )}
+        </React.Fragment>
+      );
+    } else {
+      // Skip rendering if the comment is undefined or doesn't have 'responseTo'
       return null;
-    });
-  };
+    }
+  });
+};
+
 
   const onHandleChange = () => {
     setOpenReplyComments(!openReplyComments)
