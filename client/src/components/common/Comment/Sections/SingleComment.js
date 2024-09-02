@@ -89,19 +89,19 @@ function SingleComment(props) {
   return (
     <div className="max-w-2xl mx-auto px-4">
       {/* 댓글 보여주는 부분 */}
-      <article className="p-6 text-base bg-white rounded-lg dark:bg-gray-900 mt-6">
+      <article className="p-6 text-base bg-gray-900 rounded-lg dark:text-white mt-6">
         {/* writer, date, toggle */}
         <footer className="flex justify-between items-center mb-2">
           <div className="flex items-center">
-            <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+            <p className="inline-flex items-center mr-3 text-sm text-white dark:text-white font-semibold">
               <img
                 className="mr-2 w-6 h-6 rounded-full"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png"
+                src="https://static-00.iconduck.com/assets.00/profile-user-icon-2048x2048-m41rxkoe.png"
                 alt={props.comment.writer.name}
               />
               {props.comment.writer.name}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-white dark:text-gray-400">
               <time
                 pubdate="true"
                 dateTime={props.comment.createdAt}
@@ -115,7 +115,7 @@ function SingleComment(props) {
           <div className="relative">
             <button
               onClick={toggleDropdown}
-              className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-gray-900 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               type="button"
             >
               <svg
@@ -170,7 +170,7 @@ function SingleComment(props) {
               value={editedContent}
               onChange={handleEditChange}
               rows="4"
-              className="w-full p-2 mb-4 text-sm text-gray-900 bg-gray-100 rounded dark:bg-gray-700 dark:text-white"
+              className="w-full p-2 mb-4 text-sm text-white bg-gray-700 rounded dark:bg-gray-700 dark:text-white"
             />
             <button
               onClick={onClickEdit}
@@ -181,7 +181,7 @@ function SingleComment(props) {
           </div>
         ) : (
           // comment
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-white dark:text-gray-400">
             {props.comment.content}
           </p>
         )}
@@ -215,7 +215,7 @@ function SingleComment(props) {
       {/* 답글 남기는 부분 */}
       {openReply && (
         <form className="mt-6" onSubmit={onSubmit}>
-          <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+          <div className="py-2 px-4 mb-4 bg-gray-700 rounded-lg rounded-t-lg dark:bg-gray-800 dark:border-gray-700">
             <label htmlFor="comment" className="sr-only">
               Your comment
             </label>
@@ -223,7 +223,7 @@ function SingleComment(props) {
               value={comment}
               onChange={handleChange}
               rows="6"
-              className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+              className="px-0 w-full text-sm bg-gray-700 text-white border-0 focus:ring-0 focus:outline-none dark:bg-gray-900 dark:placeholder-gray-400 dark:bg-gray-800"
               placeholder="Write a comment..."
               required
             ></textarea>
