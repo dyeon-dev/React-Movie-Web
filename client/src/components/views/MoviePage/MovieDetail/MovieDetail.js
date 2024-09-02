@@ -9,14 +9,14 @@ import Comment from "../../../common/Comment/Comment";
 
 import axios from 'axios';
 
-export default function MovieDetail({ movieId, onClose, movieImage }) {
+export default function MovieDetail(props) {
   const [Movie, setMovie] = useState(null);
   const [Casts, setCasts] = useState([]);
   const [commentLists, setCommentLists] = useState([])
 
   useEffect(() => {
-    let endpointCrew = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
-    let endpointInfo = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
+    let endpointCrew = `${API_URL}movie/${props.movieId}/credits?api_key=${API_KEY}`;
+    let endpointInfo = `${API_URL}movie/${props.movieId}?api_key=${API_KEY}`;
 
     fetch(endpointInfo)
       .then((response) => response.json())
@@ -30,8 +30,11 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
         setCasts(response.cast.slice(0, 3));
       });
 
+      const variable = {
+        movieId: props.movieId
+      };
       // 댓글 정보 가져오기
-      axios.post('/api/comment/getComments', movieId)
+      axios.post('/api/comment/getComments', variable)
       .then(response => {
           console.log(response)
           if (response.data.success) {
@@ -40,11 +43,11 @@ export default function MovieDetail({ movieId, onClose, movieImage }) {
               alert('댓글을 가져오는데 실패했습니다.')
           }
       })
-  }, [movieId]);
+  }, []);
   
-  // 자식 컴포넌트로부터 추가된 댓글 업데이트 받기 
-  const refreshFunction = (newComment) => {
-    setCommentLists(commentLists.concat(newComment))
+// 자식 컴포넌트로부터 추가된 댓글 업데이트 받기 
+const refreshFunction = (newComment) => {
+  setCommentLists(commentLists.concat(newComment))
 }
 
 // 자식 컴포넌트로부터 수정된 댓글 업데이트 받기 
@@ -68,9 +71,11 @@ const refreshRemoveFunction = (updatedComments) => {
 };
 
   if (!Movie) return null;
+
   let voteAverage = Movie.vote_average.toFixed(1);
+
   return (
-    <Dialog open={true} onClose={onClose} className="relative z-10 text-white">
+    <Dialog open={true} onClose={props.onClose} className="relative z-10 text-white">
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <DialogPanel
@@ -109,8 +114,8 @@ const refreshRemoveFunction = (updatedComments) => {
                     <br />
                     <Favorite
                       movieInfo={Movie}
-                      movieId={movieId}
-                      movieImage={movieImage}
+                      movieId={props.movieId}
+                      movieImage={props.movieImage}
                       userFrom={localStorage.getItem("userId")}
                     />
                   </DialogTitle>
@@ -126,14 +131,14 @@ const refreshRemoveFunction = (updatedComments) => {
                     </p>
                     <p className="text-sm">{Movie.overview}</p>
                   </div>
-                  <Comment movieId={movieId} commentLists={commentLists} refreshFunction={refreshFunction} refreshRemoveFunction={refreshRemoveFunction} refreshEditFunction={refreshEditFunction}/>
+                  <Comment movieId={props.movieId} commentLists={commentLists} refreshFunction={refreshFunction} refreshRemoveFunction={refreshRemoveFunction} refreshEditFunction={refreshEditFunction}/>
                 </div>
               </div>
             </div>
             <div className="bg-black px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button
                 type="button"
-                onClick={onClose}
+                onClick={props.onClose}
                 className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
               >
                 close

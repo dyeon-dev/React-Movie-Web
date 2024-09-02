@@ -6,7 +6,7 @@ const commentSchema = mongoose.Schema({
         type: Schema.Types.ObjectId,  // ObjectId 하나의 정보로 user에 있는 모든 정보들을 가져올 수 있다.
         ref: 'User' // User에 생성된 모든 정보를 가져온다.
     },
-    postId: {
+    movieId: {
         type: String
     },
     responseTo: {
