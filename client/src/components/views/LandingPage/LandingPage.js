@@ -1,25 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./LandingPage.module.css";
-import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import btn from "../../common/Button.module.css";
+import Auth from "../../../hoc/auth"
+import axios from "axios";
 
-export default function LandingPage() {
-  const Button = styled.button`
-    background: red;
-    color: white;
-    padding: 0.3em 1em;
-    margin: 6px;
-    font-size: 1.7em;
-    border-radius: 6px;
-    &:hover {
-      border-color: red;
-      box-shadow: 0 0.5em 0.5em -0.4em white;
-    }
-  `;
+function LandingPage() {
+  const [isAuth, setIsAuth] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch the auth state from the server
+    axios.get("/api/users/auth")
+      .then(response => {
+        setIsAuth(response.data.isAuth);
+      })
+      .catch(err => {
+        console.error("Failed to fetch auth status:", err);
+      });
+  }, []);
+
+  const handleClick = () => {
+    axios.get("/api/users/logout").then((res) => {
+      if (res.data.success) {
+        navigate("/");
+        window.location.reload();
+      } else {
+        console.log(res.data)
+        alert("로그아웃 실패");
+      }
+    });
+  };
 
   return (
-    <div className={`${styles.body} flex-col`}>
+    <div className={`${styles.body} -mt-8`}>
       {/* 배경이미지 */}
       <div
         className="bg-cover bg-center w-full h-screen relative"
@@ -54,12 +69,23 @@ export default function LandingPage() {
               <p className="my-8 text-2xl text-white">
                 시청할 준비가 되셨나요? 로그인을 하거나 회원가입을 해주세요.
               </p>
-              <Link to="/login">
-                <Button>로그인</Button>
-              </Link>
-              <Link to="/register">
-                <Button>회원가입</Button>
-              </Link>
+              {isAuth ? (
+                <>
+                   <button onClick={handleClick} className={btn.okButton}>로그아웃</button>
+                <Link to="/movie">
+                   <button className={btn.cancelButton}>홈으로</button>
+                </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <button className={btn.okButton}>로그인</button>
+                  </Link>
+                  <Link to="/register">
+                    <button className={btn.cancelButton}>회원가입</button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
           <div className={styles.bgImg}></div>
@@ -68,3 +94,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+export default Auth(LandingPage, null);

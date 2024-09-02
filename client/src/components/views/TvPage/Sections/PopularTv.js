@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../../Config";
-import SlideCard from "../MovieDetail/SlideCard";
+import SlideCard from "../TvDetail/SlideCard";
 import styles from "../../../common/SlideCard.module.css";
+import MainImage from "./MainImage";
 
-export default function UpcomingMovie({ fetchMovie }) {
-  const [movies, setMovies] = useState([]);
-  const [MainMovieImg, setMainMovieImg] = useState(null);
+export default function PopularTv({ fetchTv }) {
+  const [tvs, setTvs] = useState([]);
+  const [MainTvImg, setMainTvImg] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const endpoint = `${API_URL}movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`;
-    fetchMovie(endpoint, setMovies, setMainMovieImg);
-  }, [fetchMovie]);
-
-
+    const endpoint = `${API_URL}tv/top_rated?api_key=${API_KEY}&language=en-US&page=1`;
+    fetchTv(endpoint, setTvs, setMainTvImg);
+  }, [fetchTv]);
+  
   const nextSlide = () => {
-    if (currentIndex + 8 < movies.length) {
+    if (currentIndex + 8 < tvs.length) {
       setCurrentIndex(currentIndex + 8);
     }
   };
@@ -27,8 +27,16 @@ export default function UpcomingMovie({ fetchMovie }) {
   };
 
   return (
-    <div>
-      <p className="my-8 text-4xl font-bold text-white">개봉 예정인 영화</p>
+    <>
+    {MainTvImg && (
+          <MainImage
+            image={`${IMAGE_BASE_URL}w1280${MainTvImg.backdrop_path}`}
+            title={MainTvImg.original_name}
+            text={MainTvImg.overview}
+          />
+        )}
+      <p className="my-8 text-4xl font-bold text-white">인기 드라마</p>
+
       <div className="flex items-center">
         <button
           onClick={prevSlide}
@@ -39,27 +47,27 @@ export default function UpcomingMovie({ fetchMovie }) {
         </button>
 
         <div className="grid grid-cols-8 gap-3 transition-transform duration-500 ease-out">
-          {movies.slice(currentIndex, currentIndex + 8).map((movie, index) => (
+          {tvs.slice(currentIndex, currentIndex + 8).map((tv, index) => (
             <SlideCard
               key={index}
               image={
-                movie.poster_path
-                  ? `${IMAGE_BASE_URL}w500${movie.poster_path}`
+                tv.poster_path
+                  ? `${IMAGE_BASE_URL}w500${tv.poster_path}`
                   : 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Noimage.svg/1479px-Noimage.svg.png'
                 }
-              movieId={movie.id}
-              movieName={movie.original_title}
+              tvId={tv.id}
+              tvName={tv.original_name}
             />
           ))}
         </div>
         <button
           onClick={nextSlide}
-          disabled={currentIndex + 8 >= movies.length}
+          disabled={currentIndex + 8 >= tvs.length}
           className={styles.button}
         >
           ›
         </button>
       </div>
-    </div>
+    </>
   );
 }

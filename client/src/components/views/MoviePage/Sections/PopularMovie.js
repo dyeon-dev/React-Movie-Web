@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../../Config";
 import SlideCard from "../MovieDetail/SlideCard";
-import styles from "../MovieDetail/SlideCard.module.css";
+import styles from "../../../common/SlideCard.module.css";
 import MainImage from "./MainImage";
 
 export default function PopularMovie({ fetchMovie }) {
@@ -53,8 +53,8 @@ export default function PopularMovie({ fetchMovie }) {
               image={
                 movie.poster_path
                   ? `${IMAGE_BASE_URL}w500${movie.poster_path}`
-                  : null
-              }
+                  : 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Noimage.svg/1479px-Noimage.svg.png'
+                }
               movieId={movie.id}
               movieName={movie.original_title}
             />
