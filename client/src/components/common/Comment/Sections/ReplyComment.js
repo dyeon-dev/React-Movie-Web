@@ -61,8 +61,8 @@ const renderReplyComment = (parentCommentId) => {
     <div>
         {/* 답글이 있는 경우만 렌더링 */}
         {childCommentNumber > 0 && (
-            <p style={{ fontSize: "14px", marginLeft:20, color: "gray" }} onClick={onHandleChange}>
-            View {childCommentNumber} more comment(s)
+            <p style={{ fontSize: "14px", marginLeft:20, color: "#9BA3AF" }} onClick={onHandleChange}>
+            댓글 {childCommentNumber}개 더보기
             </p>
       )}
 

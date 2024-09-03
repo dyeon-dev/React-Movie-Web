@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Axios from "axios";
+import LikeDislike from "./\bLikeDislike";
 
 function SingleComment(props) {
   const [openReply, setOpenReply] = useState(false);
@@ -186,11 +187,14 @@ function SingleComment(props) {
           </p>
         )}
         
+        {/* 댓글 좋아요 / 싫어요  */}
+        <LikeDislike commentId={props.comment._id} userId={localStorage.getItem('userId')} />
+
         {/* Reply */}
         <div className="flex items-center mt-4 space-x-4">
           <button
             onClick={onClickReplyOpen}
-            className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium"
+            className="flex items-center text-sm text-gray-300 hover:underline dark:text-gray-400 font-medium"
           >
             <svg
               className="mr-1.5 w-3.5 h-3.5"
