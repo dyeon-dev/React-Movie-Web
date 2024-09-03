@@ -25,6 +25,7 @@ mongoose // 몽구스를 이용해서 mongoDB에 연결
   app.use('/api/users', require('./routes/users'));
   app.use('/api/favorite', require('./routes/favorite'))
   app.use('/api/comment', require('./routes/comment'));
+  app.use('/api/like', require('./routes/like'));
 
 
 
