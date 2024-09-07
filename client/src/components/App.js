@@ -10,6 +10,8 @@ import RegisterPage from "./views/RegisterPage/RegisterPage";
 import SearchPage from "./views/SearchPage/SearchPage";
 import FavoritePage from "./views/FavoritePage/FavoritePage";
 import NavBar from "./views/Navbar/NavBar";
+import ChatPage from "./views/ChatPage/ChatPage";
+import socket from "../server";
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/favorites" element={<FavoritePage />} />
           <Route path="/ratelists" element={<RateListPage />} />
+          <Route path="/chat" element={<ChatPage />} />
         </Routes>
       </Router>
     </Suspense>

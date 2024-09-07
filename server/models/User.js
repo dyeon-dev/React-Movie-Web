@@ -33,6 +33,10 @@ const userSchema = mongoose.Schema({
   tokenExp: {
     type: Number,
   },
+  online: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 // save하기 전에 비밀번호를 암호화 시킨다.
