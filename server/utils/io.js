@@ -10,6 +10,12 @@ module.exports = function(io) {
             try{
                 // 유저 정보를 저장
                 const user = await userController.saveUser(userName, socket.id)
+                const welcomeMessage = {
+                    chat: `${user.name} is joined`,
+                    user: {id: null, name: "system"}
+                }
+                // 유저가 로그인 했을 때 웰컴 메세지 보내기
+                io.emit("message", welcomeMessage)
                 cb({ok: true, data: user})
             } catch(err){
                 cb({ok: false, error: err.message})
@@ -22,6 +28,7 @@ module.exports = function(io) {
                 const user = await userController.checkUser(socket.id)
                 // 메세지 저장
                 const newMessage = await chatController.saveChat(message, user)
+                // 서버에 접속한 모든 클라이언트들에게 메세지 전부 뿌리기 
                 io.emit("message", newMessage)
                 cb({ok: true})
             } catch(err){
