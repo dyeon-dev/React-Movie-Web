@@ -31,11 +31,7 @@ const userSchema = mongoose.Schema({
     type: String,
   },
   tokenExp: {
-    type: Number,
-  },
-  online: {
-    type: Boolean,
-    default: false,
+    type: Number
   }
 });
 

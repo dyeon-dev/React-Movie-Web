@@ -1,12 +1,12 @@
 const mongoose = require("mongoose"); // 몽구스를 가져온다.
 
-const userSchema = mongoose.Schema(
+const chatSchema = new mongoose.Schema(
     {
         chat: String,
         user: {
             id: {
-                type: mongoose.Schema.objectId,
-                ref: "User",
+                type: mongoose.Schema.ObjectId,
+                ref: "chatUser",
             },
             name: String,
         },
@@ -14,6 +14,6 @@ const userSchema = mongoose.Schema(
     {timestamp: true}
 );
 
-const Chat = mongoose.model("Chat", userSchema); // 스키마를 모델로 감싸준다.
+const Chat = mongoose.model("Chat", chatSchema); // 스키마를 모델로 감싸준다.
 
-module.exports = { Chat }; 
+module.exports =  Chat ; 

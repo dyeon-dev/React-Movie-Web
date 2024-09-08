@@ -11,7 +11,6 @@ import SearchPage from "./views/SearchPage/SearchPage";
 import FavoritePage from "./views/FavoritePage/FavoritePage";
 import NavBar from "./views/Navbar/NavBar";
 import ChatPage from "./views/ChatPage/ChatPage";
-import socket from "../server";
 
 function App() {
   return (
