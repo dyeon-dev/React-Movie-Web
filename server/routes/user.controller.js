@@ -1,13 +1,13 @@
-const { chatUser }  = require("../models/ChatUser");
+const { User }  = require("../models/User");
 const userController = {}
 
 // 유저 정보 저장
 userController.saveUser = async(userName, sid) => {
     // 이미 있는 유저인지 확인
-    let user = await chatUser.findOne({name: userName})
+    let user = await User.findOne({name: userName})
     // 없다면 새로 유저정보 만들기
     if (!user) {
-        user = new chatUser({
+        user = new User({
             name:userName, 
             socketId: sid,
             online: true
@@ -23,7 +23,7 @@ userController.saveUser = async(userName, sid) => {
 
 
 userController.checkUser = async(sid) => {
-    const user = await chatUser.findOne({socketId: sid})
+    const user = await User.findOne({socketId: sid})
     if (!user) throw new Error("user not found")
         return user;
 }

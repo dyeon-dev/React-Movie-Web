@@ -8,16 +8,28 @@ export default function ChatPage() {
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState([])
+  const isNameAskedRef = useRef(false);
 
   useEffect(() => {
-    socket.on("message", (message) => {
+    const handleMessage = (message) => {
       console.log(message);
-      setMessageList((prevState)=> prevState.concat(message));
-    })
-    askUserName();
-  }, []);
+      setMessageList((prevState) => [...prevState, message]);
+    };
+  
+    socket.on("message", handleMessage);
+  
+    if (!isNameAskedRef.current) {
+      askUserName();
+      isNameAskedRef.current = true;
+    }
+  
+    return () => {
+      socket.off("message", handleMessage);
+    };
+  }, []); // 빈 의존성 배열
+  
   const askUserName = () => {
-    const userName = prompt("이름 입력");
+    const userName = localStorage.getItem("userId")
     console.log(userName);
     socket.emit("login", userName, (res) => {
       console.log(res);

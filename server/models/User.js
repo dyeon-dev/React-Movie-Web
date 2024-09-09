@@ -32,6 +32,13 @@ const userSchema = mongoose.Schema({
   },
   tokenExp: {
     type: Number
+  },
+  socketId: {
+    type: String,
+  },
+  online: {
+    type: Boolean,
+    default: false,
   }
 });
 
