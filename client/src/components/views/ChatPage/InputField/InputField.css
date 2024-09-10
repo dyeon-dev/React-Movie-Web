@@ -4,33 +4,19 @@
     display: flex;
     position: absolute;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
+    color: black;
+    border-radius: 8px;
+    padding: 10px;
+    box-sizing: border-box;
   }
-  .plus-button{
-    background-color: lightslategray;
-    width: 50px;
-    color:white;
-    font-weight: bold;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-  }
-  
   .input-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    border-radius: 8px;
   }
-  
-  .MuiInput-root{
-    height: 100%;
-    width: 100%;
-    border:none;
-    border-color: white;
-  
-  }
-  
   
   input{
     border:none;
@@ -46,13 +32,14 @@
   .send-button{
     min-width: 70px;
     border-radius:0;
-    background-color:#F7E600; 
-    border:none;
+    background-color:#D71E26; 
+    border-radius: 8px;
+    color: white
   }
   .send-button:hover {
     cursor:pointer;
   }
   .send-button:active {
-    background-color: yellow;
+    background-color: #B91C1B;
   }
   

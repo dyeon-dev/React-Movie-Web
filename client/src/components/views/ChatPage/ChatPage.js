@@ -5,6 +5,7 @@ import InputField from "./InputField/InputField";
 import MessageContainer from "./MessageContainer/MessageContainer";
 import Auth from "../../../hoc/auth"
 import { useSelector } from "react-redux";
+import bg from "../LandingPage/LandingPage.module.css"
 
 function ChatPage() {
   const [user, setUser] = useState(null);
@@ -48,6 +49,8 @@ function ChatPage() {
     setMessage(""); // 메시지 전송 후 입력 필드 초기화
   };
   return (
+    <div className={`${bg.body} text-white`}>
+
     <div className={styles.chat}>
       <MessageContainer messageList={messageList} user={user} />
       <InputField
@@ -55,6 +58,7 @@ function ChatPage() {
         setMessage={setMessage}
         sendMessage={sendMessage}
       />
+    </div>
     </div>
   );
 }

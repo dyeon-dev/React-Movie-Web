@@ -19,7 +19,7 @@
   margin-bottom: 5px;
 }
 .my-message {
-  background-color: #f7e600;
+  background-color: #374151;
   border-radius: 8px;
   padding: 8px;
   max-width: 200px;
@@ -33,7 +33,7 @@
   align-items: center;
 }
 .your-message {
-  background-color: white;
+  background-color: #111827;
   border-radius: 8px;
   padding: 8px;
   max-width: 200px;
