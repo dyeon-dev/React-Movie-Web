@@ -3,14 +3,14 @@ import styles from "./ChatPage.module.css";
 import socket from "../../../server";
 import InputField from "./InputField/InputField";
 import MessageContainer from "./MessageContainer/MessageContainer";
-import Auth from "../../../hoc/auth"
+import Auth from "../../../hoc/auth";
 import { useSelector } from "react-redux";
-import bg from "../LandingPage/LandingPage.module.css"
+import bg from "../LandingPage/LandingPage.module.css";
 
 function ChatPage() {
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState("");
-  const [messageList, setMessageList] = useState([])
+  const [messageList, setMessageList] = useState([]);
   const isNameAskedRef = useRef(false); // strict mode이슈로 인한 참조변수 사용
   const userD = useSelector((state) => state.user);
 
@@ -32,14 +32,13 @@ function ChatPage() {
       console.log(message);
       setMessageList((prevState) => [...prevState, message]);
     };
-  
+
     socket.on("message", handleMessage);
-  
+
     return () => {
       socket.off("message", handleMessage);
     };
   }, [userD.userData]); // 빈 의존성 배열
-  
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -50,15 +49,15 @@ function ChatPage() {
   };
   return (
     <div className={`${bg.body} text-white`}>
-
-    <div className={styles.chat}>
-      <MessageContainer messageList={messageList} user={user} />
-      <InputField
-        message={message}
-        setMessage={setMessage}
-        sendMessage={sendMessage}
-      />
-    </div>
+      <h1 className="text-center text-3xl font-bold py-4">실시간 토크 💬</h1>
+      <div className={`${styles.chat} py-4`}>
+        <MessageContainer messageList={messageList} user={user} />
+        <InputField
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+        />
+      </div>
     </div>
   );
 }
