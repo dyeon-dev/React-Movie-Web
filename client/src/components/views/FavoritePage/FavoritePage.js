@@ -4,8 +4,9 @@ import styles from "../RateListPage/RateList.module.css";
 import bg from "../LandingPage/LandingPage.module.css"
 import ListItem from "./Sections/ListItem";
 import Axios from "axios";
+import Auth from "../../../hoc/auth"
 
-export default function FavoritePage() {
+function FavoritePage() {
   const [loading, setLoading] = useState(true);
   const [favorites, setFavorites] = useState([]);
 
@@ -45,3 +46,4 @@ export default function FavoritePage() {
     </div>
   );
 }
+export default Auth(FavoritePage, true);

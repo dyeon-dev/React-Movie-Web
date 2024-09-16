@@ -31,8 +31,15 @@ const userSchema = mongoose.Schema({
     type: String,
   },
   tokenExp: {
-    type: Number,
+    type: Number
   },
+  socketId: {
+    type: String,
+  },
+  online: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 // save하기 전에 비밀번호를 암호화 시킨다.
