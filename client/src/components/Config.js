@@ -1,3 +1,4 @@
-export const API_URL = 'https://api.themoviedb.org/3/';
-export const API_KEY = '9942b35d915193e4c3e9aca4fb9f9484'
-export const IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/';
+// Config.js
+export const API_URL = process.env.REACT_APP_API_URL;
+export const API_KEY = process.env.REACT_APP_API_KEY;
+export const IMAGE_BASE_URL = process.env.REACT_APP_IMAGE_BASE_URL;
