@@ -20,11 +20,9 @@ function MoviePage() {
   return (
     <div>
       <div className="bg-black text-white">
-        <div className="p-6">
           <PopularMovie fetchMovie={fetchMovies} />
           <NowplayMovie fetchMovie={fetchMovies} />
           <UpcomingMovie fetchMovie={fetchMovies} />
-        </div>
       </div>
     </div>
   );

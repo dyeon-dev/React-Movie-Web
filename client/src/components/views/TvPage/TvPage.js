@@ -20,10 +20,8 @@ function TvPage() {
   return (
     <div>
       <div className="bg-black text-white">
-        <div className="p-6">
           <PopularTv fetchTv={fetchTvs} />
           <NowplayTv fetchTv={fetchTvs} />
-        </div>
       </div>
     </div>
   );
