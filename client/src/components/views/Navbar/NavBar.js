@@ -20,7 +20,7 @@ function NavBar() {
   }
 
   const handleClick = () => {
-    axios.get(`${process.env.REACT_APP_API_URL}/api/users/logout`).then((res) => {
+    axios.get(`${process.env.REACT_SERVER_API_URL}/api/users/logout`).then((res) => {
       if (res.data.success) {
         navigate("/");
       } else {

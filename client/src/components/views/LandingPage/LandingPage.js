@@ -12,7 +12,7 @@ function LandingPage() {
 
   useEffect(() => {
     // Fetch the auth state from the server
-    axios.get(`${process.env.REACT_APP_API_URL}/api/users/auth`)
+    axios.get(`${process.env.REACT_SERVER_API_URL}/api/users/auth`)
       .then(response => {
         setIsAuth(response.data.isAuth);
       })
@@ -22,7 +22,7 @@ function LandingPage() {
   }, []);
 
   const handleClick = () => {
-    axios.get(`${process.env.REACT_APP_API_URL}/api/users/logout`).then((res) => {
+    axios.get(`${process.env.REACT_SERVER_API_URL}/api/users/logout`).then((res) => {
       if (res.data.success) {
         navigate("/");
         window.location.reload();

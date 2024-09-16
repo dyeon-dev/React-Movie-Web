@@ -6,6 +6,7 @@ import MessageContainer from "./MessageContainer/MessageContainer";
 import Auth from "../../../hoc/auth";
 import { useSelector } from "react-redux";
 import bg from "../LandingPage/LandingPage.module.css";
+import { io } from "socket.io-client";
 
 function ChatPage() {
   const [user, setUser] = useState(null);
@@ -14,12 +15,17 @@ function ChatPage() {
   const isNameAskedRef = useRef(false); // strict mode이슈로 인한 참조변수 사용
   const userD = useSelector((state) => state.user);
 
+  const socketRef = useRef();
+
   useEffect(() => {
+     // 소켓 초기화
+     socketRef.current = io(process.env.REACT_APP_API_URL); // 서버 URL 사용
+
     // Redux 상태의 생명주기와 소켓 연결 시점의 차이로 useEffect 조건부 실행
     if (userD.userData && !isNameAskedRef.current) {
       const userName = userD.userData.name;
       console.log("Emitting login event with userName:", userName);
-      socket.emit("login", userName, (res) => {
+      socketRef.current.emit("login", userName, (res) => {
         console.log("Login response:", res);
         if (res?.ok) {
           setUser(res.data);
@@ -33,16 +39,19 @@ function ChatPage() {
       setMessageList((prevState) => [...prevState, message]);
     };
 
-    socket.on("message", handleMessage);
+    // 메시지 수신 처리
+    socketRef.current.on("message", handleMessage);
 
+    // 클린업 함수
     return () => {
-      socket.off("message", handleMessage);
+      // socket.off("message", handleMessage);
+      socketRef.current.disconnect(); // 소켓 연결 해제
     };
-  }, [userD.userData]); // 빈 의존성 배열
+  }, [userD.userData]);
 
   const sendMessage = (event) => {
     event.preventDefault();
-    socket.emit("sendMessage", message, (res) => {
+    socketRef.current.emit("sendMessage", message, (res) => {
       console.log("sendMessage res", res);
     });
     setMessage(""); // 메시지 전송 후 입력 필드 초기화
