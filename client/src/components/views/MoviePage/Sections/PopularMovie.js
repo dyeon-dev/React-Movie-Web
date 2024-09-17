@@ -13,7 +13,7 @@ export default function PopularMovie({ fetchMovie }) {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     fetchMovie(endpoint, setMovies, setMainMovieImg);
   }, [fetchMovie]);
-  
+
   const nextSlide = () => {
     if (currentIndex + 8 < movies.length) {
       setCurrentIndex(currentIndex + 8);
@@ -28,45 +28,50 @@ export default function PopularMovie({ fetchMovie }) {
 
   return (
     <>
-    {MainMovieImg && (
-          <MainImage
-            image={`${IMAGE_BASE_URL}w1280${MainMovieImg.backdrop_path}`}
-            title={MainMovieImg.original_title}
-            text={MainMovieImg.overview}
-          />
-        )}
-      <p className="my-8 text-4xl font-bold text-white">인기 영화</p>
+      {MainMovieImg && (
+        <MainImage
+          image={`${IMAGE_BASE_URL}w1280${MainMovieImg.backdrop_path}`}
+          title={MainMovieImg.original_title}
+          text={MainMovieImg.overview}
+        />
+      )}
 
-      <div className="flex items-center">
-        <button
-          onClick={prevSlide}
-          disabled={currentIndex === 0}
-          className={styles.button}
-        >
-          ‹
-        </button>
+      <div className="p-4">
+        <p className="my-8 text-4xl font-bold text-white">인기 영화</p>
 
-        <div className="grid grid-cols-8 gap-3 transition-transform duration-500 ease-out">
-          {movies.slice(currentIndex, currentIndex + 8).map((movie, index) => (
-            <SlideCard
-              key={index}
-              image={
-                movie.poster_path
-                  ? `${IMAGE_BASE_URL}w500${movie.poster_path}`
-                  : 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Noimage.svg/1479px-Noimage.svg.png'
-                }
-              movieId={movie.id}
-              movieName={movie.original_title}
-            />
-          ))}
+        <div className="flex items-center">
+          <button
+            onClick={prevSlide}
+            disabled={currentIndex === 0}
+            className={styles.button}
+          >
+            ‹
+          </button>
+
+          <div className="grid grid-cols-8 gap-3 transition-transform duration-500 ease-out">
+            {movies
+              .slice(currentIndex, currentIndex + 8)
+              .map((movie, index) => (
+                <SlideCard
+                  key={index}
+                  image={
+                    movie.poster_path
+                      ? `${IMAGE_BASE_URL}w500${movie.poster_path}`
+                      : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Noimage.svg/1479px-Noimage.svg.png"
+                  }
+                  movieId={movie.id}
+                  movieName={movie.original_title}
+                />
+              ))}
+          </div>
+          <button
+            onClick={nextSlide}
+            disabled={currentIndex + 8 >= movies.length}
+            className={styles.button}
+          >
+            ›
+          </button>
         </div>
-        <button
-          onClick={nextSlide}
-          disabled={currentIndex + 8 >= movies.length}
-          className={styles.button}
-        >
-          ›
-        </button>
       </div>
     </>
   );
