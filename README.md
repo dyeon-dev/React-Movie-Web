@@ -1,4 +1,11 @@
+<div align="center">
+
 # MERN FullStack Movie Web 🍿
+  
+https://mern-vercel-rosy.vercel.app
+
+</div>
+
 
 ## 🛠️ 기술 스택 (MERN)
 - MongoDB
@@ -33,6 +40,7 @@
 - 개봉 날짜, 러닝타임, 장르 및 별점, 출연자, 줄거리 정보 제공
 - 좋아요 추가
 - 댓글, 답글 기능으로 작품 후기 남기기
+  - 댓글 좋아요 / 싫어요 기능
 
 **4. 드라마 페이지**
 
