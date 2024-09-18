@@ -2,12 +2,12 @@
 
 # MERN FullStack Movie Web 🍿
   
-https://mern-vercel-rosy.vercel.app
+<https://mern-vercel-rosy.vercel.app>
 
 </div>
 
-
 ## 🛠️ 기술 스택 (MERN)
+
 - MongoDB
 - Node.js, Express
 - React.js
@@ -19,13 +19,15 @@ https://mern-vercel-rosy.vercel.app
 <img width="555" alt="image" src="https://github.com/user-attachments/assets/a2a02eb2-176b-4ad3-a8a5-bb1dbae5fdd7">
 
 ## 🌈 페이지 상세 기능
+
 **1. 메인 페이지**
 
 <img width="1440" alt="image" src="https://github.com/user-attachments/assets/f065aab3-9da2-48ac-860a-53858bd08780">
 
 - 로그인/회원가입 시 서비스 이용 가능
+  - 페이지별 Auth 미들웨어 적용
 
-**2. 영화 페이지** 
+**2. 영화 페이지**
 
 <img width="1440" alt="image" src="https://github.com/user-attachments/assets/449b834e-b329-4ffc-845a-9bee7116dde5">
 <img width="1440" alt="image" src="https://github.com/user-attachments/assets/34accad2-d725-4460-b352-c4ff0d9598ea">
